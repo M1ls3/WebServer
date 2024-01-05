@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Information</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <form id="ipForm">
+        <input type="text" id="ipInput" placeholder="Enter IP Address">
+        <input type="submit" value="IP Lookup (JSON)">
+        <button type="button" id="xmlLookup">IP Lookup (XML)</button>
+        <div id="result"></div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ipInput').on('keypress', function (event) {
+                var inputValue = event.key;
+                var validChars = /^[0-9.:]+$/;
+
+                if (!validChars.test(inputValue)) {
+                    event.preventDefault();
+                    return false;
+                }
+
+                var currentInput = $(this).val();
+
+                if (inputValue === '.' && (currentInput.length === 0 || currentInput.slice(-1) === '.')) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            function handleSuccess(response, ipAddress) {
+                var resultDiv = $('#result');
+                resultDiv.empty();
+
+                var message = response.message || '';
+                var countryCode = '_unitednations'; 
+
+                if (response.hasOwnProperty('countryCode')) {
+                    countryCode = response.countryCode.toLowerCase();
+                }
+
+                if (message == 'reserved range' || message == 'invalid query' || message == 'private range') {
+                    resultDiv.append(`<p>IP details for ${ipAddress} [${message.charAt(0).toUpperCase() + message.slice(1)} IP]</p>`);
+                    resultDiv.append('<p>Country Code: N/A</p><img src="flags_ISO_3166-1/_unitednations.png">');
+                    resultDiv.append('<p>Country Name: N/A</p><p>Region: N/A</p><p>Region Name: N/A</p><p>City: N/A</p><p>Postal Code: N/A</p><p>Latitude: N/A</p><p>Longitude: N/A</p>');
+                } else {
+                    resultDiv.append(`<p>IP details for ${ipAddress}</p>`);
+                    resultDiv.append(`<p>Country Code: ${response.countryCode}</p><img src="flags_ISO_3166-1/${countryCode}.png">`);
+                    resultDiv.append(`<p>Country Name: ${response.country}</p><p>Region: ${response.region}</p><p>Region Name: ${response.regionName}</p><p>City: ${response.city}</p><p>Postal Code: ${response.zip}</p><p>Latitude: ${response.lat}</p><p>Longitude: ${response.lon}</p>`);
+                }
+            }
+
+            function handleError() {
+                $('#result').text('Error occurred while fetching data.');
+            }
+
+            $('#ipForm').on('submit', function (event) {
+                event.preventDefault();
+                var ipAddress = $('#ipInput').val();
+
+                var ipPattern = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'json.php',
+                    data: { ip: ipAddress },
+                    dataType: 'json',
+                    success: function (response) {
+                        handleSuccess(response, ipAddress);
+                    },
+                    error: handleError
+                });
+            });
+
+            $('#xmlLookup').on('click', function () {
+                var ipAddress = $('#ipInput').val();
+
+                var ipPattern = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'xml.php',
+                    data: { ip: ipAddress },
+                    dataType: 'xml',
+                    success: function (response) {
+                        var xmlString = new XMLSerializer().serializeToString(response);
+                        var parsedXML = $.parseXML(xmlString);
+                        var data = {};
+                        $(parsedXML).find('*').each(function () {
+                            data[this.tagName] = $(this).text();
+                        });
+                        handleSuccess(data, ipAddress);
+                    },
+                    error: handleError
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

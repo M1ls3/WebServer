@@ -1,0 +1,256 @@
+* {                                 /* Універсальний селектор */
+    margin: 0;                      /* Зовнішні відступи елементів */
+    padding: 0;                     /* Вн. Відступи елементів */
+    list-style: none;               /* Зміна стандартних маркерів */
+}
+
+a {
+    all: unset;                     /* Встановлення стилю для всіх елементів */
+}
+
+body {
+    height: 100%;                   /* Встановнює розмір сторінки по висоті */
+}
+
+.container {                        /* Стиль елементів в класі container */
+    width: 1170px;                  /* Фіксує ширину */
+    margin: auto;                   /* Розміщення по центру */
+    display: grid;                  /* Встановлення сітки */
+    grid-gap: 10px;                 /* Встановлює загальну відстань між елементами сітки */
+    height: 100%;                   /* Висота контейнера */
+    grid-template-columns: 1fr 150px;   /* Розмір кожного стовпця сітки (їх 2) */
+    grid-template-rows: 150px 1fr 250px 150px;  /* Розмір кожного рядка сітки (їх 4) */
+    background-color: rgba(217, 132, 132, 0.569);   /* Колір контейнера */
+}
+
+header {                            /* Шапка */
+    background: linear-gradient(90deg, #e69f64, #e59191);   /* Колір шапки */
+    grid-row: 1;                    /* Виставляє хедер в першу комірку сітки */
+    grid-column: span 2;            /* Виставлє хедер в 2 ширини комірки */
+    border-radius: 5px;             /* Скуглання */
+    display: grid;                  /* Прикріпляє елемент до сітки */
+}
+
+header h2 {                         /* Заголовок */
+    color: white;                 /* Колір */
+    font-size: 35px;                /* Розмір шрифту */
+    text-shadow: -2px -4px rgba(255, 255, 255, .4), 2px 1px rgba(255, 0, 0, 1); /* Тінь */
+    align-self: center;             /* Прикріпляє до центру по вертикалі */
+    justify-self: center;           /* Прикріпляє до центру по горизонталі */
+}
+
+header h2::before {                 /* Вміст хедера */
+    content: 'Medieval warriors';
+}
+
+.join {                             /* Стиль джоїну */
+    background-color: rgb(82, 74, 132); /* Колір */
+    border-radius: 100px;           /* Скруглення */
+    width: 39px;                    /* Ширина */
+    position: fixed;                /* Фіксує позицію */
+    bottom: 1;                      /* Положення */
+    right: 1;                       /* Положення */
+    cursor: pointer;                /* Змінює курсор */
+    color: white;                 /* Колір тексту */
+    overflow: hidden;               /* Приховує текст */
+    line-height: 25px;              /* Висота рядка тексту 25px */
+    text-align: center;             /* Центрує текст */
+    text-transform: uppercase;      /* Переводить текст на верхній регістр */
+    margin: 2px 2px 2px 2px;        /* Зовнішні відступи (верх, низ, ліво, право) */
+    text-overflow: clip;            /* Обрізає текст */
+    white-space: nowrap;            /* Не переносить текс на новий рядок */
+    padding: 0 0 0 3px;             /* Вн. відступи елементу */
+    transition: all linear .1s;     /* Тип анімації (лінійна) протягом 0.1 сек. */
+    z-index: 1;                     /* Визначає місце в стеку (поверх інших) */
+}
+
+.join:hover {
+    width: 200px;                   /* Сама анімація зміни ширини */
+}
+
+.img_cards {
+    display: grid;                  /* Прикріпляє елемент до сітки */
+    grid-gap: 10px;                 /* Встановлює загальну відстань між елементами сітки */
+    max-height: 100%;               /* Максимальна висота контейнера відносно інших */
+    grid-template-columns: repeat(2, 1fr);  /* Кількість і розмір стовпців */
+    position: relative;             /* Позиція елементів згідно розташування в файлі */
+}
+
+.img_card {
+    width: 100%;                    /* Ширина */
+    height: 25vw;                   /* Висота 25% від висоти вікна */
+    border-radius: 10px;            /* Скруглення */
+    background: rgb(218, 148, 148) var(--img) center / cover;   /* Стиль, фоновий колір, картинка, центрування і заповнення */
+    transition: transform linear .1s;   /* Анімація лінійна і на 0.1 сек. */
+}
+
+.img_card:first-child{
+    transform-origin: left top;     /* Встановлює точку трансформації */
+}
+
+.img_card:nth-child(2) {
+    transform-origin: right top;    /* Встановлює точку трансформації */
+}
+
+.img_card:nth-child(3) {
+    transform-origin: left bottom;  /* Встановлює точку трансформації */
+}
+
+.img_card:last-child {
+
+    transform-origin: right bottom; /* Встановлює точку трансформації */
+}
+
+.img_card:hover { 
+    transform: scale(2);            /* Сама трансформація, більшкє в двічі */
+}
+
+.rotated_text {
+    display: grid;                  /* Тут і так зрозуміло */
+    writing-mode: vertical-lr;      /* Спосіб запису, вертикальний */
+    align-items: center;            /* Центрує текст по вертикалі */
+    justify-items: center;          /* Центрує текст по горизонталі */
+    font-size: 30px;                /* Розмір шрифту */
+    letter-spacing: 3px;            /* Відстань між символами */
+    border-radius: 5px;             /* Скруглання */
+    box-shadow: 2px 3px 20px rgb(152, 0, 0) inset;  /* Вн. тінь */
+}
+
+.text_content {                     /* Отой текст під картинками */
+    grid-column: span 2;            /* Виставлє блок в 2 ширини комірки */
+    display: grid;                  /* Понятно */
+    grid-template-columns: repeat(3, 1fr);  /* Розміщення і форматування */
+    grid-gap: 10px;                 /* Зазор між елементами */
+    padding: 10px;                  /* Вн. відстань */
+}
+
+.text_content .text {
+    width: 100%;                    /* Ширина комірки */
+    overflow: scroll;               /* Панель прокрутки */
+    background-color: white;      /* Колір фону */
+    word-break: break-word;         /* На новий рядок */
+    resize: none;                   /* Зміна розміру теустового поля (заборона) */
+}
+
+footer {                            /* Футер */
+    grid-column: span 2;            /* Виставлє блок в 2 ширини комірки */
+    background: linear-gradient(90deg, #e69f64, #e59191);   /* Фон градієнт */
+    display: grid;                  /* Прикріпляє елемент до сітки */
+    border-radius: 5px;
+    align-items: center;            /* Центрує по вертикалі */
+    justify-items: center;          /* Центрує по горизонталі */
+    color: white;                 /* Колір тексту */
+}
+
+footer ul {                         /* Ця штука з прономерованими елементами */
+    display: grid;                  /* Ясно */
+    grid-template-columns: repeat(3, 1fr);  /* Розмітка сітки на 3 стовпця */
+    align-items: center;            /* Центрує по вертикалі */
+    justify-items: center;          /* Центрує по горизонталі */
+}
+
+footer ul li{                       /* Ці самі елементи */
+    text-transform: uppercase;      /* Переводить у верхній регістр */
+    cursor: pointer;                /* Змінює курсор */
+    transition: all .15s;           /* Анімація */
+}
+
+footer ul li:hover {                /* Сама анімація */ 
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.cntc_form form{
+    display: grid;
+    grid-template-columns: repeat(2, 150px);    /* Розмітка сітки на 2 стовпця */
+    grid-gap: 3px;                  /* Відстань між елементами */
+}
+.cntc_form input {                  
+    grid-column: 1;                 /* Положення в сітці (1 стовпчик) */
+    width: 100%;                    /* Ширина */
+}
+.cntc_form button {                 /* Кнопочка */
+    grid-row-start: 2;              /* Положення в сітці (2 рядок) */
+    grid-column: 2;                 /* Положення в сітці (2 стовпчик) */
+    width: 50px;                    /* Формфактор */
+    height: 19.2px;                 /* Формфактор */
+    background-color: red;        /* Колір */
+    border-radius: 10px;            /* Скруглення */
+    border: none;                   /* Видаляє рамку */
+    margin: 0 0 0 3px;              /* Відступи */
+    transition: box-shadow .15s;    /* Анімація */
+    cursor: pointer;                /* Зміна курсору */
+}
+
+.cntc_form button:hover {           /* Сама анімація */
+    box-shadow: 200px 0 rgba(255, 255, 255, .5) inset;
+}
+
+
+@media (max-width: 1000px) {        /* Якщо вікно 1000 пік. то контейнер - 900 */
+    .container {
+        width: 900px;
+    }
+}
+
+@media (max-width: 900px) {         /* Якщо вікно 900 пік. то контейнер - 768 */
+    .container {
+        width: 768px;
+    }
+}
+
+@media (max-width: 768px)           /* Якщо вікно 768 пік. */
+{
+        .container {                /* Зміна контейнеру */
+            width: 480px;
+            grid-template-rows: 150px 1fr 100px 200px;    
+        }
+        header {                    
+            grid-column: span 3;    /* Збільшує ширину заголовка до 3 комірок */
+        }
+        .img_cards {
+            grid-template-columns: repeat(1, 1fr);  /* Зменшує ширину картинок до 1 комірки */
+            grid-row: 2;            /* Встановлює елемент на 2 комірку по горизонталі */
+            grid-column: span 3;    /* Збільшує ширину об'єкта до 3 комірок */
+        }
+        .rotated_text {             /* Перевернутий текст */
+            grid-column: span 3;    /* Збільшує ширину об'єкта до 3 комірок */
+            writing-mode: horizontal-tb;    /* Змінює тип написання */
+        }
+        .img_card:hover {
+            transform: scale(1);    /* Вимикає анімацію */
+        }
+        footer {
+            grid-column: span 3;
+        }
+        .text_content {
+            grid-template-columns: 1fr;
+            grid-row: 4;
+            grid-column: span 3;
+        }
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        width: 480px;
+        grid-template-rows: 150px 1fr 400px 150px; 
+    }
+    .rotated_text {
+        display: none;
+    }
+    .img_cards {
+        grid-column: span 2;
+    }
+    .text_content {
+        grid-row: 3;
+    }
+    .img_card {
+        height: 50vw;               /* Встановлює висоту на 50% ширини вікна (vw - viewport width) */
+    }
+    .img_card:hover {
+        transform: scale(1);
+    }
+    .text_content {
+        grid-template-columns: 1fr;
+    }
+}
