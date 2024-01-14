@@ -20,9 +20,6 @@
         ?>
         <br>
         <input type="submit" value="Відправити запит">
-        <?php
-        echo "<footer><b><a href='http://server/index.html'>Повернутися на головну сторінку</a></footer>";
-        ?>
     </form>
 </body>
 </html>

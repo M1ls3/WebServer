@@ -61,7 +61,6 @@ if ($file) {
     echo "</table>";
     fclose($file); // Закриття файлу
 }
-echo "<b><a href='http://server/index.html'>Повернутися на головну сторінку</a>";
 ?>
 
 </body>
